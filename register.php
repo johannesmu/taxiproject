@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('includes/database.php');
 $page_title = "Register For Account";
 
@@ -43,11 +44,21 @@ if( $request_type == 'POST' ){
         $statement = $connection -> prepare( $query );
         $statement -> bind_param('sssssss', $first_name, $last_name, $address, $city, $phone, $email, $hash);
         if( $statement -> execute() ){
+            $_SESSION['name'] = $first_name . ' ' . $last_name;
+            $_SESSION['email'] = $email;
+            //redirect user to home page
+            header('location: index.php');
+            
             //success
             //redirect to booking page
         }
         else{
-            $errors['registration'] = 'Oops something went wrong!';
+            if( $connection -> errno == '1062'){
+                $errors['email'] = 'email already used';
+            }
+            else{
+               $errors['registration'] = 'Oops something went wrong!'; 
+            }
         }
        
     }

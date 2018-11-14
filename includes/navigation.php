@@ -11,8 +11,13 @@ $nav_array = array(
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <?php
+  if( isset( $_SESSION['name'] ) ){
+    echo "<div> Hello ". $_SESSION['name'] ."</div>";
+  }
+  ?>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <div class="nav navbar-nav">
+    <div class="nav navbar-nav ml-auto">
         <?php
         foreach( $nav_array as $nav_item => $nav_link ){
             echo "<a href=\"$nav_link\" class=\"nav-link\">$nav_item</a>";
